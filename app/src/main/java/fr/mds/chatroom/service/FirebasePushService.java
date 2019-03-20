@@ -36,8 +36,4 @@ public class FirebasePushService extends FirebaseMessagingService {
 
     }
 
-    @Override
-    public void onNewToken(String s) {
-        Log.d(TAG, "onNewToken " + s);
-    }
 }

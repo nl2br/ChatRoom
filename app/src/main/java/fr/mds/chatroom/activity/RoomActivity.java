@@ -55,25 +55,23 @@ public class RoomActivity extends Activity {
 
         // ADAPTER
         messageAdapter = new MessageViewAdapter(this, messages);
-        // initialise adapter with messages
         lv_chat_room_message_list.setAdapter(messageAdapter);
 
         bt_chat_room_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            // TEMP add messages
             sendMessage(et_chat_room_message.getText().toString());
-
             }
         });
 
+        // BROADCAST RECEIVER
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 try {
                     String user = intent.getStringExtra("user");
                     String message = intent.getStringExtra("message");
-                    sendMessage(message, user);
+                    receiveMessage(message, user);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -89,16 +87,19 @@ public class RoomActivity extends Activity {
         // add the content
         addMessage(content, currentUserLogin);
         messageAdapter.notifyDataSetChanged();
+
         //post
+
     }
 
-    void sendMessage(String content, String user){
+
+
+    void receiveMessage(String content, String user){
         Log.d(TAG,"From outside : user " + user + " say : " + content);
 
         // add the content
         addMessage(content, user);
         messageAdapter.notifyDataSetChanged();
-        //post
     }
 
     void addMessage(String content, String userLogin) {
