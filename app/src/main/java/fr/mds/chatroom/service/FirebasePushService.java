@@ -18,6 +18,11 @@ public class FirebasePushService extends FirebaseMessagingService {
 
     private static final String TAG = "chatroom";
 
+    @Override
+    public void onNewToken(String s) {
+        Log.d(TAG, "onNewToken " + s);
+
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -29,7 +34,7 @@ public class FirebasePushService extends FirebaseMessagingService {
 
         LocalBroadcastManager broadcaster = LocalBroadcastManager.getInstance(getBaseContext());
 
-        Intent intent = new Intent("test");
+        Intent intent = new Intent("portal");
         intent.putExtra("user", user);
         intent.putExtra("message", message);
         broadcaster.sendBroadcast(intent);
